@@ -50,5 +50,16 @@ Login credentials for the admin panel are:
 The system consists of a single backend service named `beatles`. This service is responsible for all backend logic, data handling, and API endpoints. It's built using Django and Django Rest Framework, and it follows RESTful principles for API design.
 
 
+## Database Information
+
+This application uses a PostgreSQL database service hosted by Vercel. The database is located in a Washington server.
+
+### Performance Note:
+- The read and write operations to this PostgreSQL database might be slower than usual, which can affect the response times of the APIs. This latency is due to the geographical location and performance characteristics of the cloud-hosted database service.
+
+Please take this into consideration when using the APIs, as there might be a noticeable delay in responses.
+
+---
+
 
 
