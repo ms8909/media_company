@@ -79,7 +79,7 @@ class SongAPITestCase(APITestCase):
             'nme_ranking': 100,
             'writers': [{'name': self.writer1.name}, {'name': self.writer2.name}],
             'singers': [{'name': self.singer1.name}, {'name': self.singer2.name}],
-            'lyrics': json.dumps({'lyrics_text': "These are the lyrics of the song."}),
+            'lyrics': {'lyrics_text': "These are the lyrics of the song."},
         }
 
         # Post request to create a new song
@@ -101,7 +101,7 @@ class SongAPITestCase(APITestCase):
             'nme_ranking': 100,
             'writers': [{'name': self.writer1.name}, {'name': self.writer2.name}],
             'singers': [{'name': self.singer1.name}, {'name': self.singer2.name}],
-            'lyrics': json.dumps({'lyrics_text': "These are the lyrics of the song."}),
+            'lyrics': {'lyrics_text': "These are the lyrics of the song."},
         }
 
         # Attempt to create a new song without authentication

@@ -85,7 +85,7 @@ DATABASES = {
         'HOST': 'ep-square-bird-13457440-pooler.us-east-1.postgres.vercel-storage.com',
         'PORT': '5432',
         'TEST': {
-            'NAME': 'testdbvercel15',
+            'NAME': 'testdbvercel16',
         },
     }
 }

@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Album, SongWriter, Singer, Song
+import re, os, json
 
 
 class AlbumSerializer(serializers.ModelSerializer):
@@ -66,7 +67,29 @@ class SongSerializer(serializers.ModelSerializer):
             singer, _ = Singer.objects.get_or_create(**singer_data)
             song.singers.add(singer)
 
+        # Process lyrics data
+        if 'lyrics' in validated_data:
+            lyrics_json = validated_data.pop('lyrics', '{}')
+            lyrics_dict = lyrics_json
+
+            # Get the value of the first (and presumably only) item in the dictionary
+            lyrics_text = next(iter(lyrics_dict.values()), '') if lyrics_dict else ''
+
+            if lyrics_text:
+                self.save_lyrics_to_object_storage(song.name, lyrics_text)
+
         return song
+
+    def save_lyrics_to_object_storage(self, song_name, lyrics_text):
+        """
+        Saves lyrics to a text file in the specified directory (or object storage)
+        """
+        sanitized_song_name = re.sub(r'[^\w\s-]', '', song_name.lower()).replace(' ', '-')
+        views_dir = os.path.dirname(os.path.abspath(__file__))
+        lyrics_path = os.path.join(views_dir, 'object_storage/lyrics', f'{sanitized_song_name}.txt')
+
+        with open(lyrics_path, 'w', encoding='utf-8') as file:
+            file.write(lyrics_text)
 
 
 class LimitedSongSerializer(serializers.ModelSerializer):
